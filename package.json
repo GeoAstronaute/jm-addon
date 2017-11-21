@@ -1,6 +1,6 @@
 {
   "name": "jm-addon",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "addon tes",
   "main": "./bundles/jm-addon.umd.js",
   "module": "./index.js",
@@ -26,7 +26,7 @@
     "commitmsg": "commitlint -e",
     "codecov": "cat coverage/lcov.info | codecov",
     "prettier": "prettier --write",
-    "precommit": "lint-staged"
+    "precommit": "say 'yes'"
   },
   "lint-staged": {
     "{demo,src,test}/**/*.ts": [
