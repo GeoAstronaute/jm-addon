@@ -5,8 +5,11 @@ import { HelloWorldComponent } from './hello-world.component';
 
 @NgModule({
   declarations: [HelloWorldComponent],
-  imports: [CommonModule, MatButtonModule ],
+  imports: [CommonModule, MatButtonModule],
   exports: [HelloWorldComponent]
 })
 export class JmAddonModule {
+  static getViewComponent() {
+    return HelloWorldComponent;
+  }
 }
