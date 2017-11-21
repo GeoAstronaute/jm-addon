@@ -1,0 +1,14 @@
+{
+  "generator-angular-library": {
+    "githubUsername": "GeoAstronaute",
+    "githubRepoName": "jm-addon",
+    "npmModuleName": "jm-addon",
+    "moduleGlobal": "jmAddon",
+    "ngModuleName": "JmAddonModule",
+    "selectorPrefix": "jm",
+    "projectTitle": "materia-jm-addon",
+    "projectDescription": "addon tes",
+    "authorName": "GeoAstronaute",
+    "packageManager": "yarn"
+  }
+}
