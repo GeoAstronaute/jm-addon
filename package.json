@@ -1,6 +1,6 @@
 {
   "name": "jm-addon",
-  "version": "0.2.0",
+  "version": "0.3.0",
   "description": "addon tes",
   "main": "./bundles/jm-addon.umd.js",
   "module": "./index.js",
@@ -131,5 +131,9 @@
     "@angular/cdk": "^5.0.0-rc.1",
     "@angular/core": ">=4.0.0 <6.0.0",
     "@angular/material": "^5.0.0-rc.1"
-  }
+  },
+  "materia": {
+    "module": "JmAddonModule",
+    "addon": "JmAddon"
+}
 }
