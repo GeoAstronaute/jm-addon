@@ -1,6 +1,6 @@
 {
   "name": "jm-addon",
-  "version": "0.5.0",
+  "version": "0.6.0",
   "description": "addon tes",
   "main": "./bundles/jm-addon.umd.js",
   "module": "./index.js",
