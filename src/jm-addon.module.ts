@@ -10,7 +10,7 @@ import { HelloWorldComponent } from './hello-world.component';
   entryComponents: [HelloWorldComponent]
 })
 export class JmAddonModule {
-  static getViewComponent() {
+  getViewComponent() {
     return HelloWorldComponent;
   }
 }
