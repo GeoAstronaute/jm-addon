@@ -19,7 +19,8 @@ export default {
   },
   externals: [
     angularExternals(),
-    rxjsExternals()
+    rxjsExternals(),
+    /^(@angular|\$)$/i
   ],
   devtool: 'source-map',
   module: {
