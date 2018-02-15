@@ -1,74 +1,78 @@
-System.register(['@angular/core', 'plugins-core'], function (exports, module) {
+System.register([], function (exports, module) {
 'use strict';
-var Component, Extension;
 return {
-setters: [function (module) {
-Component = module.Component;
-}, function (module) {
-Extension = module.Extension;
-}],
 execute: function () {
 
-/*! *****************************************************************************
-Copyright (c) Microsoft Corporation. All rights reserved.
-Licensed under the Apache License, Version 2.0 (the "License"); you may not use
-this file except in compliance with the License. You may obtain a copy of the
-License at http://www.apache.org/licenses/LICENSE-2.0
-
-THIS CODE IS PROVIDED ON AN *AS IS* BASIS, WITHOUT WARRANTIES OR CONDITIONS OF ANY
-KIND, EITHER EXPRESS OR IMPLIED, INCLUDING WITHOUT LIMITATION ANY IMPLIED
-WARRANTIES OR CONDITIONS OF TITLE, FITNESS FOR A PARTICULAR PURPOSE,
-MERCHANTABLITY OR NON-INFRINGEMENT.
-
-See the Apache Version 2.0 License for specific language governing permissions
-and limitations under the License.
-***************************************************************************** */
-/* global Reflect, Promise */
-
-
-
-
-
-
-
-function __decorate(decorators, target, key, desc) {
-    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
-    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
-    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
-    return c > 3 && r && Object.defineProperty(target, key, r), r;
+exports('Extension', Extension);
+function Extension(name, deps) {
+    return function (constructor) {
+        Extension.prototype.registry[name] = {
+            ctor: constructor,
+            deps: deps || []
+        };
+    };
 }
+Extension.prototype.registry = {};
 
-var MyLabelComponent = (exports('MyLabelComponent', function () {
-    function MyLabelComponent() {
-    }
-    MyLabelComponent.prototype.ngOnInit = function () {
-        console.log('My Label Init');
-    };
-    MyLabelComponent = __decorate([
-        Extension('my-label', []),
-        Component({
-            selector: 'my-label',
-            template: "<h1>My Label</h1>"
-        })
-    ], MyLabelComponent);
-    return MyLabelComponent;
-}()));
+Extension.prototype.getProviders = function () {
+    var registry = this.registry;
+    return Object.keys(registry).map(function (key) {
+        return {
+            provide: key,
+            useClass: registry[key].ctor,
+            deps: registry[key].deps
+        };
+    });
+};
 
-var MyButtonComponent = (exports('MyButtonComponent', function () {
-    function MyButtonComponent() {
+Extension.prototype.getExtensionType = function (name) {
+    return this.registry[name].ctor;
+};
+
+var classCallCheck = function (instance, Constructor) {
+  if (!(instance instanceof Constructor)) {
+    throw new TypeError("Cannot call a class as a function");
+  }
+};
+
+var createClass = function () {
+  function defineProperties(target, props) {
+    for (var i = 0; i < props.length; i++) {
+      var descriptor = props[i];
+      descriptor.enumerable = descriptor.enumerable || false;
+      descriptor.configurable = true;
+      if ("value" in descriptor) descriptor.writable = true;
+      Object.defineProperty(target, descriptor.key, descriptor);
     }
-    MyButtonComponent.prototype.ngOnInit = function () {
-        console.log('My Button Init');
-    };
-    MyButtonComponent = __decorate([
-        Extension('my-button', []),
-        Component({
-            selector: 'my-button',
-            template: "<button>My Button</button>"
-        })
-    ], MyButtonComponent);
-    return MyButtonComponent;
-}()));
+  }
+
+  return function (Constructor, protoProps, staticProps) {
+    if (protoProps) defineProperties(Constructor.prototype, protoProps);
+    if (staticProps) defineProperties(Constructor, staticProps);
+    return Constructor;
+  };
+}();
+
+var PluginManager = function () {
+    function PluginManager() {
+        classCallCheck(this, PluginManager);
+    }
+
+    createClass(PluginManager, [{
+        key: 'getType',
+        value: function getType(name) {
+            return Extension.prototype.getExtensionType(name);
+        }
+    }, {
+        key: 'getProviders',
+        value: function getProviders() {
+            return Extension.prototype.getProviders();
+        }
+    }]);
+    return PluginManager;
+}();
+
+var pluginManager = exports('pluginManager', new PluginManager());
 
 }
 };
